@@ -1,0 +1,46 @@
+import java.util.*;
+import java.util.stream.*;
+
+class Student {
+    private String name;
+    private int marks;
+
+    public Student(String name, int marks) {
+        this.name = name;
+        this.marks = marks;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getMarks() {
+        return marks;
+    }
+
+    @Override
+    public String toString() {
+        return "Student(Name: " + name + ", Marks: " + marks + ")";
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        List<Student> students = Arrays.asList(
+            new Student("Abhishek", 88),
+            new Student("Ayan", 72),
+            new Student("Pulkit", 95),
+            new Student("Akash", 67),
+            new Student("Ruchi", 80)
+        );
+
+        List<String> studentNames = students.stream()
+            .filter(s -> s.getMarks() > 75)
+            .sorted(Comparator.comparingInt(Student::getMarks))
+            .map(Student::getName)
+            .collect(Collectors.toList());
+
+        System.out.println("Students scoring above 75%, sorted by marks:");
+        System.out.println(studentNames);
+    }
+}
